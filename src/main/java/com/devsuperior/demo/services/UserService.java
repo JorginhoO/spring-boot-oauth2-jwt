@@ -6,17 +6,19 @@ import com.devsuperior.demo.projections.UserDetailsProjection;
 import com.devsuperior.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository respository;
 
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 
         List<UserDetailsProjection> result = respository.searchUserAndRolesByEmail(username);
